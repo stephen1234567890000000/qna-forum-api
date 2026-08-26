@@ -24,7 +24,7 @@ router.post(
   asyncHandler(createThread),
 );
 router.get("/", asyncHandler(getAllThreads));
-router.get("/myThreads", authenticate, asyncHandler(getMyThreads));
+router.get("/my-threads", authenticate, asyncHandler(getMyThreads));
 
 router.get("/:id", asyncHandler(getThreadById));
 router.put(

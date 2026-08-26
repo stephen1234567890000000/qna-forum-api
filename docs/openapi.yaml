@@ -1,0 +1,200 @@
+openapi: 3.0.3
+info:
+  title: QnA Forum API
+  version: 1.0.0
+  description: REST API for a simple authenticated Q&A forum.
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: Auth
+  - name: Users
+  - name: Threads
+paths:
+  /api/auth/register:
+    post:
+      tags: [Auth]
+      summary: Register a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User registered and JWT issued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /api/auth/login:
+    post:
+      tags: [Auth]
+      summary: Login and receive a JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/users/{id}:
+    get:
+      tags: [Users]
+      summary: Get a public user profile
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Public profile.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/threads:
+    get:
+      tags: [Threads]
+      summary: List all threads
+      responses:
+        '200':
+          description: Thread list.
+    post:
+      tags: [Threads]
+      summary: Create a thread
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThreadRequest'
+      responses:
+        '201':
+          description: Thread created.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/threads/my-threads:
+    get:
+      tags: [Threads]
+      summary: List threads owned by the current user
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: Current user's threads.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/threads/{id}:
+    get:
+      tags: [Threads]
+      summary: Get a thread by ID
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Thread detail.
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags: [Threads]
+      summary: Update an owned thread
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThreadRequest'
+      responses:
+        '200':
+          description: Thread updated.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags: [Threads]
+      summary: Delete an owned thread
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Thread deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    RegisterRequest:
+      type: object
+      required: [username, email, password]
+      properties:
+        username: { type: string, minLength: 3 }
+        email: { type: string, format: email }
+        password: { type: string, minLength: 6, format: password }
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, minLength: 6, format: password }
+    ThreadRequest:
+      type: object
+      required: [title, content]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 200 }
+        content: { type: string, minLength: 1 }
+    AuthResponse:
+      type: object
+      properties:
+        success: { type: boolean, example: true }
+        message: { type: string }
+        token: { type: string }
+        user:
+          type: object
+          properties:
+            id: { type: string }
+            username: { type: string }
+            email: { type: string, format: email }
+  responses:
+    BadRequest:
+      description: Invalid request body.
+    Unauthorized:
+      description: Authentication required or credentials invalid.
+    Forbidden:
+      description: User is not the thread owner.
+    NotFound:
+      description: Resource not found.

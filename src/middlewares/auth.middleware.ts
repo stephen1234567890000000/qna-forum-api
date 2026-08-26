@@ -33,6 +33,6 @@ export const authenticate = (
 
     next();
   } catch (error) {
-    new AppError("Invalid or expired token", 401);
+    next(new AppError("Invalid or expired token", 401));
   }
 };
