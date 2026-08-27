@@ -18,7 +18,7 @@ User dapat membuat akun baru dengan mengirimkan username, email, dan password. P
 
 <!-- Tempel screenshot Swagger UI untuk endpoint register di bawah ini. -->
 
-![Register endpoint](docs/screenshots/register.png)
+![Register endpoint](![alt text](image.png) ![alt text](image-1.png))
 
 **Contoh request:**
 
@@ -39,7 +39,7 @@ Response berisi pesan sukses, data user publik, dan token JWT.
 - `400 Bad Request` jika field kosong atau format email tidak valid.
 - `400 Bad Request` jika email sudah terdaftar.
 
-![Register validation error](docs/screenshots/register-error-400.png)
+![Register validation error](![alt text](image-2.png) ![alt text](image-3.png))
 
 ### 2. User Login and JWT Authentication
 
@@ -49,7 +49,7 @@ User yang sudah terdaftar dapat login menggunakan email dan password. Jika krede
 
 **Dokumentasi / Screenshot:**
 
-![Login endpoint](docs/screenshots/login.png)
+![Login endpoint](![alt text](image-4.png) ![alt text](image-5.png))
 
 **Contoh request:**
 
@@ -67,7 +67,7 @@ User yang sudah terdaftar dapat login menggunakan email dan password. Jika krede
 - `400 Bad Request` jika email atau password tidak valid.
 - `401 Unauthorized` jika email atau password salah.
 
-![Login unauthorized error](docs/screenshots/login-error-401.png)
+![Login unauthorized error](![alt text](image-6.png) ![alt text](image-7.png))
 
 ### 3. Public User Profile
 
@@ -77,7 +77,7 @@ Endpoint ini digunakan untuk melihat profil publik user berdasarkan ID. Data pas
 
 **Dokumentasi / Screenshot:**
 
-![User profile endpoint](docs/screenshots/user-profile.png)
+![User profile endpoint](![alt text](image-8.png) ![alt text](image-9.png))
 
 **Expected response:** `200 OK`
 
@@ -85,7 +85,7 @@ Response berisi ID, username, email, dan waktu pembuatan akun.
 
 **Contoh error:** `404 Not Found` jika user dengan ID tersebut tidak ditemukan.
 
-![User profile not found](docs/screenshots/user-profile-error-404.png)
+![User profile not found](![alt text](image-10.png) ![alt text](image-11.png))
 
 ### 4. Create Discussion Thread
 
@@ -101,7 +101,7 @@ Authorization: Bearer <JWT_TOKEN>
 
 **Dokumentasi / Screenshot:**
 
-![Create thread endpoint](docs/screenshots/create-thread.png)
+![Create thread endpoint](![alt text](image-12.png) ![alt text](image-13.png))
 
 **Contoh request:**
 
@@ -119,7 +119,7 @@ Authorization: Bearer <JWT_TOKEN>
 - `400 Bad Request` jika title atau content kosong.
 - `401 Unauthorized` jika token tidak dikirim atau token tidak valid.
 
-![Create thread unauthorized](docs/screenshots/create-thread-error-401.png)
+![Create thread unauthorized](![alt text](image-14.png) ![alt text](image-15.png) ![alt text](image-16.png) ![alt text](image-17.png))
 
 ### 5. Get All Threads
 
@@ -131,7 +131,7 @@ Endpoint publik untuk mengambil seluruh thread dari semua user. Setiap thread me
 
 **Dokumentasi / Screenshot:**
 
-![Get all threads endpoint](docs/screenshots/get-all-threads.png)
+![Get all threads endpoint](![alt text](image-18.png) ![alt text](image-19.png))
 
 **Expected response:** `200 OK`
 
@@ -149,13 +149,13 @@ Authorization: Bearer <JWT_TOKEN>
 
 **Dokumentasi / Screenshot:**
 
-![Get my threads endpoint](docs/screenshots/get-my-threads.png)
+![Get my threads endpoint](![alt text](image-20.png) ![alt text](image-21.png))
 
 **Expected response:** `200 OK`
 
 **Contoh error:** `401 Unauthorized` jika request tidak memiliki token yang valid.
 
-![Get my threads unauthorized](docs/screenshots/get-my-threads-error-401.png)
+![Get my threads unauthorized](![alt text](image-22.png) ![alt text](image-23.png))
 
 ### 7. Get Thread Detail
 
@@ -167,13 +167,13 @@ Endpoint publik untuk melihat detail satu thread berdasarkan ID.
 
 **Dokumentasi / Screenshot:**
 
-![Get thread detail endpoint](docs/screenshots/get-thread-detail.png)
+![Get thread detail endpoint](![alt text](image-24.png) ![alt text](image-25.png))
 
 **Expected response:** `200 OK`
 
 **Contoh error:** `404 Not Found` jika thread tidak ditemukan.
 
-![Get thread not found](docs/screenshots/get-thread-detail-error-404.png)
+![Get thread not found](![alt text](image-26.png) ![alt text](image-27.png))
 
 ### 8. Update Own Thread
 
@@ -189,7 +189,7 @@ Authorization: Bearer <JWT_TOKEN>
 
 **Dokumentasi / Screenshot:**
 
-![Update thread endpoint](docs/screenshots/update-thread.png)
+![Update thread endpoint](![alt text](image-28.png) ![alt text](image-29.png))
 
 **Contoh request:**
 
@@ -209,7 +209,7 @@ Authorization: Bearer <JWT_TOKEN>
 - `404 Not Found` jika thread tidak ditemukan.
 - `400 Bad Request` jika request body tidak valid.
 
-![Update thread forbidden](docs/screenshots/update-thread-error-403.png)
+![Update thread forbidden](![alt text](image-30.png) ![alt text](image-31.png))
 
 ### 9. Delete Own Thread
 
@@ -225,7 +225,7 @@ Authorization: Bearer <JWT_TOKEN>
 
 **Dokumentasi / Screenshot:**
 
-![Delete thread endpoint](docs/screenshots/delete-thread.png)
+![Delete thread endpoint](![alt text](image-32.png) ![alt text](image-33.png))
 
 **Expected response:** `200 OK`
 
@@ -235,7 +235,7 @@ Authorization: Bearer <JWT_TOKEN>
 - `403 Forbidden` jika user bukan pemilik thread.
 - `404 Not Found` jika thread tidak ditemukan.
 
-![Delete thread forbidden](docs/screenshots/delete-thread-error-403.png)
+![Delete thread forbidden](![alt text](image-34.png) ![alt text](image-35.png))
 
 ## Tech Stack
 
